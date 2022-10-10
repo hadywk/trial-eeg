@@ -48,12 +48,13 @@ n_fea = feature_all.shape[-1]
 
 final = all.shape[0]
 middle_number = final*3/4
-feature_training = feature_all[0:int(middle_number)]
-feature_testing = feature_all[int(middle_number):final]
-label_training = label_all[0:int(middle_number)]
-label_testing = label_all[int(middle_number):final]
-label_ww = label_all[int(middle_number):final]  # for the confusion matrix
-print("label_testing",label_testing.shape)
+middle_number = int(middle_number)
+feature_training = feature_all[0:middle_number]
+feature_testing = feature_all[middle_number:final]
+label_training = label_all[0:middle_number]
+label_testing = label_all[middle_number:final]
+label_ww = label_all[middle_number:final]  # for the confusion matrix
+print("label_testing", label_testing.shape)
 a = feature_training
 b = feature_testing
 print(feature_training.shape)
@@ -156,11 +157,11 @@ while step < 1500:
         print('the step is:',step,',the acc is',acc_cnn_t,', the cost is', cost)
     step+=1
 acc_cnn=compute_accuracy(b, label_testing)
-time2=time.clock()
+time2 = time.process_time()
 feature_all_cnn=sess3.run(h_fc1_drop, feed_dict={xs: feature_all, keep_prob: keep})
 print ("the shape of cnn output features",feature_all.shape,label_all.shape)
 
-time3=time.clock()
+time3 = time.process_time()
 
 
 #######RNN
@@ -262,6 +263,9 @@ def RNN(X, weights, biases):
     ##########################################
 
     # basic LSTM Cell.
+    # lstm_cell_1 = tf.compat.v1.estimator.rnn.BasicLSTMCell(n_hidden4_units, forget_bias=1.0, state_is_tuple=True)
+    # lstm_cell_2 = tf.compat.v1.estimator.rnn.BasicLSTMCell(n_hidden4_units, forget_bias=1.0, state_is_tuple=True)
+    # lstm_cell = tf.compat.v1.estimator.rnn.MultiRNNCell([lstm_cell_1, lstm_cell_2], state_is_tuple=True)
     lstm_cell_1 = tf.contrib.rnn.BasicLSTMCell(n_hidden4_units, forget_bias=1.0, state_is_tuple=True)
     lstm_cell_2 = tf.contrib.rnn.BasicLSTMCell(n_hidden4_units, forget_bias=1.0, state_is_tuple=True)
     lstm_cell = tf.contrib.rnn.MultiRNNCell([lstm_cell_1, lstm_cell_2], state_is_tuple=True)
