@@ -41,7 +41,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   iconsax: ^0.0.8
   intl: ^0.18.0
-  gender_selection: ^1.0.0
+  gender_picker: ^1.1.0
 
 dev_dependencies:
   flutter_test:
