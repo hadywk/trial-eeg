@@ -1,40 +1,57 @@
 import 'package:flutter/material.dart';
 import 'feedback_screen.dart';
-
+import 'package:graduation/screens/processing_signals_screen.dart';
 
 class Results extends StatefulWidget {
+  String predicted_result;
+  Results({Key? key, required this.predicted_result});
   @override
   State<Results> createState() => _ResultsState();
 }
 
 class _ResultsState extends State<Results> {
-
-
   @override
   Widget build(BuildContext context) {
-    var x='food';
+    var x = 'food';
     return Scaffold(
-     
-        body: Center(
-          child: Column(
-            children: [
-              Container(
-                child: GestureDetector(child: x=='food'?Icon(Icons.food_bank,size: 400,color:Colors.pink,):Icon(Icons.local_drink,size: 400,color:Colors.pink,),onTap: () {
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: GestureDetector(
+                child: x == 'food'
+                    ? Icon(
+                        Icons.food_bank,
+                        size: 400,
+                        color: Colors.pink,
+                      )
+                    : Icon(
+                        Icons.local_drink,
+                        size: 400,
+                        color: Colors.pink,
+                      ),
+                onTap: () {
                   print('Hello');
                   setState(() {
-                    x='drink';
+                    x = 'drink';
                   });
                   print(x);
-                },),// <---- Use
-              ),
-          ElevatedButton(onPressed: (){
-            Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Feedback_screen()),);}, child: Text("feedback"))
-            ],
-          ),
+                },
+              ), // <---- Use
+            ),
+            SizedBox(height: 20),
+            Text('Predicted label: ${widget.predicted_result}'),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Feedback_screen()),
+                  );
+                },
+                child: Text("feedback"))
+          ],
         ),
-      
+      ),
     );
   }
 }
