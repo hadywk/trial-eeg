@@ -1,8 +1,8 @@
 import 'package:appbar_animated/appbar_animated.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'processing_signals_screen.dart';
-
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +35,21 @@ class HomePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.4,
                 fit: BoxFit.cover,
               ),
-              Container(child: Center(
-                child: ElevatedButton(child: const Text('Start Reading',style: TextStyle(fontSize: 20),), onPressed:()=>signalsScreen(context), style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
-              fixedSize: const Size(300, 100),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50))),),
-              ),
+              Container(
+                child: Center(
+                  child: ElevatedButton(
+                    child: const Text(
+                      'Start Reading',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () => signalsScreen(context),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink,
+                        fixedSize: const Size(300, 100),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50))),
+                  ),
+                ),
                 margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.36,
                 ),
@@ -61,6 +70,17 @@ class HomePage extends StatelessWidget {
 
   Widget _appBar(BuildContext context, ColorAnimated colorAnimated) {
     return AppBar(
+      actions: [
+        IconButton(
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
+          icon: Icon(
+            Icons.exit_to_app,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        )
+      ],
       backgroundColor: colorAnimated.background,
       elevation: 0,
       title: Text(
@@ -69,7 +89,6 @@ class HomePage extends StatelessWidget {
           color: colorAnimated.color,
         ),
       ),
-      
     );
   }
 }
