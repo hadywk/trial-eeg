@@ -1,13 +1,29 @@
 import 'package:appbar_animated/appbar_animated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'processing_signals_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  void setupPushNotification() async {
+    final fcm = FirebaseMessaging.instance;
+    //final notificationSettings=await fcm.requestPermission();
+
+    final token = await fcm.getToken();
+    print(token);
+    fcm.subscribeToTopic('chat');
+  }
+
   void signalsScreen(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(
@@ -16,6 +32,12 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  initstate() {
+    super.initState();
+    setupPushNotification();
   }
 
   @override

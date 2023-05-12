@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
 
     final token = await fcm.getToken();
     print(token);
+    fcm.subscribeToTopic('chat');
 
     final email = await FirebaseFirestore.instance
         .collection('users')
