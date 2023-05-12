@@ -5,7 +5,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'feedback_screen.dart';
 import 'package:graduation/screens/processing_signals_screen.dart';
-
+import 'dart:math';
+Random random = new Random();
 class Results extends StatefulWidget {
   String predicted_result;
   Results({Key? key, required this.predicted_result});
@@ -17,6 +18,17 @@ class _ResultsState extends State<Results> {
   void setupPushNotification() async {
     final fcm = FirebaseMessaging.instance;
     //final notificationSettings=await fcm.requestPermission();
+
+    fcm.subscribeToTopic('chat');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setupPushNotification();
+  }
+
+  void not() async {
     final email = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -34,13 +46,7 @@ class _ResultsState extends State<Results> {
         .doc(email)
         .get()
         .then((value) => value.data()!['token']);
-
-    fcm.subscribeToTopic('chat');
-
-    await FirebaseFirestore.instance
-        .collection('chat')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
+    await FirebaseFirestore.instance.collection('chat').doc( (random.nextInt(1000) + 10).toString()).set({
       'username': username,
       'text': widget.predicted_result,
       'token': token
@@ -48,13 +54,8 @@ class _ResultsState extends State<Results> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    setupPushNotification();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    not();
     var x = 'food';
     return Scaffold(
       body: Center(
