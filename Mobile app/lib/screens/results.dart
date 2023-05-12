@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +17,34 @@ class _ResultsState extends State<Results> {
   void setupPushNotification() async {
     final fcm = FirebaseMessaging.instance;
     //final notificationSettings=await fcm.requestPermission();
+    final email = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) => value.data()!['email']);
 
-    final token = await fcm.getToken();
-    print(token);
+    final username = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) => value.data()!['username']);
+
+    final token = await FirebaseFirestore.instance
+        .collection('tokens')
+        .doc(email)
+        .get()
+        .then((value) => value.data()!['token']);
+
+    fcm.subscribeToTopic('chat');
+
+    await FirebaseFirestore.instance
+        .collection('chat')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      'username': username,
+      'text': widget.predicted_result,
+      'token': token
+    });
   }
 
   @override
