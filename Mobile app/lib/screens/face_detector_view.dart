@@ -71,9 +71,10 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
           inputImage.inputImageData!.size,
           inputImage.inputImageData!.imageRotation);
       _customPaint = CustomPaint(painter: painter);
-
+      int countr = 0;
+      int countl = 0;
       for (final face in faces) {
-        if (face.leftEyeOpenProbability! >= 0.5) {
+        if (face.leftEyeOpenProbability! >= 0.3) {
           setState(() {
             rightEye = "Right Eye is Open";
           });
@@ -81,18 +82,75 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
         } else {
           setState(() {
             rightEye = "Right Eye is Closed";
+            countr++;
           });
           print("Eye Close");
         }
-        if (face.rightEyeOpenProbability! >= 0.5) {
+        if (face.rightEyeOpenProbability! >= 0.3) {
           setState(() {
             leftEye = "Left Eye is Open";
           });
         } else {
           setState(() {
             leftEye = "Left Eye is Closed";
+            countl++;
           });
           print("Eye Close");
+          print(countl);
+        }
+         if (face.leftEyeOpenProbability! >= 0.3) {
+          setState(() {
+            rightEye = "Right Eye is Open";
+          });
+          print("Eye Open");
+        } else {
+          setState(() {
+            rightEye = "Right Eye is Closed";
+            countr++;
+          });
+          print("Eye Close");
+        }
+        if (face.rightEyeOpenProbability! >= 0.3) {
+          setState(() {
+            leftEye = "Left Eye is Open";
+          });
+        } else {
+          setState(() {
+            leftEye = "Left Eye is Closed";
+            countl++;
+          });
+          print("Eye Close");
+          print(countl);
+        }
+        
+        if (countr == 2) {
+          return showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                    title: const Text("feedbacK"),
+                    content: const Text("Sorry for the Inconvience"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.of(ctx)
+                            .popUntil((route) => route.isFirst),
+                        child: const Text('Try again'),
+                      )
+                    ],
+                  ));
+        } else if (countl == 2) {
+          return showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                    title: const Text("feedbacK"),
+                    content: const Text("CareGiver is alerted"),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.of(ctx)
+                            .popUntil((route) => route.isFirst),
+                        child: const Text('OK'),
+                      )
+                    ],
+                  ));
         }
       }
     } else {
