@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'feedback_instructions.dart';
 import 'feedback_screen.dart';
 import 'package:graduation/screens/processing_signals_screen.dart';
 import 'dart:math';
@@ -89,10 +90,17 @@ class _ResultsState extends State<Results> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Feedback_screen()),
+                    MaterialPageRoute(builder: (context) => FeedbackInstructions()),
                   );
                 },
-                child: Text("feedback"))
+                child: Text("feedback",
+                style: TextStyle(fontSize: 20),),
+                 style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(233, 30, 99, 1),
+                        fixedSize: const Size(300, 100),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50))),
+                )
           ],
         ),
       ),

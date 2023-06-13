@@ -2567,7 +2567,7 @@ class _Feedback_screen2State extends State<Feedback_screen2> {
   ];
   String predictedLabel = '';
   Future<String> predict() async {
-    final url = Uri.parse('http://192.168.1.34:8000/predict2');
+    final url = Uri.parse('http://192.168.1.34:8001/predict2');
     final eegDataJson = json.encode({
       'eeg_data': eegData,
     });
