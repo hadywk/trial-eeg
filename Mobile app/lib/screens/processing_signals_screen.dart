@@ -57,7 +57,7 @@ class _ProcessingSignalsState extends State<ProcessingSignals> {
   String predictedLabel = '';
 
   Future<String> predict() async {
-    final url = Uri.parse('http://192.168.1.34:8000/predict');
+    final url = Uri.parse('http://hadywk.pythonanywhere.com/predict');
     final eegDataJson = json.encode({
       'eeg_data': eegData,
     });
