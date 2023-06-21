@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () => signalsScreen(context),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(233, 30, 99, 1),
+                        backgroundColor:  Color.fromARGB(255, 5, 48, 84),
                         fixedSize: const Size(300, 100),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),

@@ -35,23 +35,23 @@ class _ProcessingSignalsState extends State<ProcessingSignals> {
 
   final List<List<double>> eegData = [
     [
-      0.2,
+      1.16538735426537,
       0.3,
-      0.5,
-      0.1,
-      0.6,
-      0.8,
-      0.4,
-      0.7,
-      0.9,
-      0.2,
-      0.3,
-      0.5,
-      0.1,
-      0.6,
-      0.8,
-      0.4,
-      0.5
+      1.207596972,
+      1.366681162,
+      0.9328492641,
+      0.1620622691,
+      -0.5690592292,
+      -0.8578332704,
+     0.8914925487,
+      1.323471917,
+      0.894634183,
+      0.5549033327,
+     -0.8724559273,
+      -0.6835424392,
+      -0.5886267323,
+      -2.013184632,
+      -1.028049912
     ]
   ];
   String predictedLabel = '';
@@ -73,7 +73,7 @@ class _ProcessingSignalsState extends State<ProcessingSignals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink,
+      backgroundColor:Color.fromARGB(255, 5, 48, 84),
       body: Column(
         children: [
           SizedBox(

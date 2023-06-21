@@ -51,7 +51,8 @@ dependencies:
   cloud_firestore: ^4.3.0
   firebase_messaging: ^14.6.0
   animated_emoji: ^1.0.0
-
+  new_gradient_app_bar: ^0.2.0
+  animate_gradient: ^0.0.2
 
 dev_dependencies:
   flutter_test:

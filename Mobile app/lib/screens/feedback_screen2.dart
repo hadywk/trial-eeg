@@ -1,9 +1,11 @@
+import 'package:animate_gradient/animate_gradient.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:animated_emoji/animated_emoji.dart';
 import 'package:appbar_animated/appbar_animated.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
 class Feedback_screen2 extends StatefulWidget {
   const Feedback_screen2({super.key});
@@ -2567,7 +2569,7 @@ class _Feedback_screen2State extends State<Feedback_screen2> {
   ];
   String predictedLabel = '';
   Future<String> predict() async {
-    final url = Uri.parse('http://192.168.1.34:8001/predict2');
+    final url = Uri.parse('http://192.168.1.12:8001/predict2');
     final eegDataJson = json.encode({
       'eeg_data': eegData,
     });
@@ -2584,91 +2586,108 @@ class _Feedback_screen2State extends State<Feedback_screen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("Emotions Feedback"),
+      appBar: NewGradientAppBar(
+        title: Text("Emotions Feedback"),
         centerTitle: true,
-        backgroundColor: Colors.pink,
+        gradient: LinearGradient(colors: [
+          Color.fromARGB(255, 5, 48, 84),
+          Color.fromARGB(255, 134, 8, 50)
+        ]),
       ),
-      body: Center(
-        child: FutureBuilder<String>(
-          future: predict(),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              // return Smilepainter( emotion1 : snapshot.data);
-              return faces('${snapshot.data}');
-            } else {
-              return Text('No data available');
-            }
-          },
+      body: AnimateGradient(
+        primaryBegin: Alignment.topLeft,
+        primaryEnd: Alignment.bottomLeft,
+        secondaryBegin: Alignment.bottomLeft,
+        secondaryEnd: Alignment.topRight,
+        primaryColors: const [
+          Colors.red,
+          Colors.redAccent,
+          Colors.white,
+        ],
+        secondaryColors: const [
+          Colors.white,
+          Colors.redAccent,
+          Colors.red,
+        ],
+        child: Center(
+          child: FutureBuilder<String>(
+            future: predict(),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                // return Smilepainter( emotion1 : snapshot.data);
+                return faces('${snapshot.data}');
+              } else {
+                return Text('No data available');
+              }
+            },
+          ),
         ),
       ),
     );
   }
 
   Widget faces(var data) {
-    return Scaffold(
-      body: Center(
-        child: Column(children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
-          ),
-          (data == 'Positive')
-              ? const AnimatedEmoji(
-                  AnimatedEmojis.smile,
-                  size: 150,
-                  repeat: true,
-                )
-              : (data == 'Negative')
-                  ? const AnimatedEmoji(
-                      AnimatedEmojis.sad,
-                      size: 150,
-                      repeat: true,
-                    )
-                  : const AnimatedEmoji(
-                      AnimatedEmojis.neutralFace,
-                      size: 150,
-                      repeat: true,
+    return Center(
+      child: Column(children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 4,
+        ),
+        (data == 'Positive')
+            ? const AnimatedEmoji(
+                AnimatedEmojis.smile,
+                size: 150,
+                repeat: true,
+              )
+            : (data == 'Negative')
+                ? const AnimatedEmoji(
+                    AnimatedEmojis.sad,
+                    size: 150,
+                    repeat: true,
+                  )
+                : const AnimatedEmoji(
+                    AnimatedEmojis.neutralFace,
+                    size: 150,
+                    repeat: true,
+                  ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 10,
+        ),
+        ElevatedButton(
+          child: Center(
+            child: CustomPaint(
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 35,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  shadows: [
+                    Shadow(
+                      blurRadius: 7.0,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      offset: Offset(0, 0),
                     ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 10,
-          ),
-          ElevatedButton(
-            child: Center(
-              child: CustomPaint(
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 35,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    shadows: [
-                      Shadow(
-                        blurRadius: 7.0,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    animatedTexts: [
-                      FlickerAnimatedText('State : ${data}'),
-                    ],
-                  ),
+                  ],
+                ),
+                child: AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    FlickerAnimatedText('State : ${data}'),
+                  ],
                 ),
               ),
             ),
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(233, 30, 99, 1),
-                fixedSize: const Size(300, 100),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50))),
           ),
-        ]),
-      ),
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 5, 48, 84),
+              fixedSize: const Size(300, 100),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50))),
+        ),
+      ]),
     );
   }
 }

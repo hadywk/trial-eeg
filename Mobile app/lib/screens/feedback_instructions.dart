@@ -79,7 +79,7 @@ class FeedbackInstructions extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height / 3.5,
             decoration: BoxDecoration(
-                color: Colors.pink, borderRadius: BorderRadius.circular(50)),
+                color: Color.fromARGB(255, 5, 48, 84), borderRadius: BorderRadius.circular(50)),
             child: Center(
               child: Text(
                 "According to the type of Disability, choose the most suitable option for the feedback!",
@@ -110,7 +110,7 @@ class FeedbackInstructions extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(233, 30, 99, 1),
+                    backgroundColor:Color.fromARGB(255, 5, 48, 84),
                     fixedSize: const Size(300, 100),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
@@ -136,7 +136,7 @@ class FeedbackInstructions extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(233, 30, 99, 1),
+                    backgroundColor:Color.fromARGB(255, 5, 48, 84),
                     fixedSize: const Size(300, 100),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
