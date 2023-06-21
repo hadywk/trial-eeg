@@ -18,7 +18,9 @@ class FeedbackInstructions extends StatelessWidget {
               children: [
                 Text(
                     "⚫ The Following option enables the patient to record feedback using eye detection.  "),
+                Text(' '),
                 Text("⁃ Left Eye blink to Accept."),
+                Text(' '),
                 Text("⁃ Right Eye blink to Refuse.")
               ],
             ),
@@ -41,19 +43,22 @@ class FeedbackInstructions extends StatelessWidget {
         builder: (ctx) => AlertDialog(
           title: const Text('Instructions', textAlign: TextAlign.center),
           content: Container(
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height / 3,
             child: Column(
               children: [
                 Text(
                     "⚫ The Following option enables the patient to record feedback using Emotion detection.  "),
+                Text(' '),
                 Text(
                   "⁃ Happy Face refers to Right result.",
                   textAlign: TextAlign.start,
                 ),
+                Text(' '),
                 Text(
                   "⁃ Sad Face refers to Wrong result.",
                   textAlign: TextAlign.start,
                 ),
+                Text(' '),
                 Text(
                   "⁃ Neutral Face refers to Satisfactory result.",
                   textAlign: TextAlign.start,
