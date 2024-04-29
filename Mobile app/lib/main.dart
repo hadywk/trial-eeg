@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation/screens/feedback_instructions.dart';
 import 'package:graduation/screens/form_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:graduation/screens/home_screen.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
               setupPushNotification();
-              return const HomePage();
+              return const FeedbackInstructions();
             }
             return const FormScreen();
           }),
